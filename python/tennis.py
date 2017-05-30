@@ -11,7 +11,7 @@ class TennisGame1:
         if playerName == self.player1Name:
             self.p1points += 1
         else:
-            self.P2POINTS += 1
+            self.p2points += 1
 
     def score(self):
         result = ""
