@@ -19,6 +19,9 @@ class TennisGame1:
         temp_score = 0
         if self.players_have_the_same_score():
             return self.tied_result()
+
+        player_winning, player_losing = self.whos_winning()
+
         if self.players[0].score >= 4 or self.players[1].score >= 4:
             minus_result = self.players[0].score - self.players[1].score
             if minus_result == 1:
@@ -59,3 +62,6 @@ class TennisGame1:
         if self.players[0].name == name:
             return self.players[0]
         return self.players[1]
+
+    def whos_winning(self):
+        return sorted(self.players, key=lambda player: player.score, reverse=True)
