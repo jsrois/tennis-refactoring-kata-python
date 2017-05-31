@@ -1,4 +1,7 @@
-FORTY  = 3
+LOVE = 0
+FIFTEEN = 1
+THIRTY = 2
+FORTY = 3
 
 
 class Player:
@@ -12,17 +15,20 @@ class Player:
     def advantage_over(self, player):
         return self.score - player.score
 
+    def fancy_score(self):
+        return {
+            0: "Love",
+            1: "Fifteen",
+            2: "Thirty",
+            3: "Forty",
+        }[self.score]
+
 
 class TennisGame1:
     def __init__(self, player1_name, player2_name):
         self.players = [Player(player1_name), Player(player2_name)]
 
-    def won_point(self, name):
-        self.get_player_by(name).won_point()
-
     def score(self):
-        result = ""
-        temp_score = 0
         if self.players_have_the_same_score():
             return self.tied_result()
 
@@ -33,19 +39,10 @@ class TennisGame1:
                 return self.winning_result(winning_player)
             return self.advantage_for(winning_player)
 
-        for i in range(1, 3):
-            if i == 1:
-                temp_score = self.players[0].score
-            else:
-                result += "-"
-                temp_score = self.players[1].score
-            result += {
-                0: "Love",
-                1: "Fifteen",
-                2: "Thirty",
-                3: "Forty",
-            }[temp_score]
-        return result
+        return self.fancy_score()
+
+    def won_point(self, name):
+        self.get_player_by(name).won_point()
 
     def tied_result(self):
         return {
@@ -70,3 +67,6 @@ class TennisGame1:
 
     def advantage_for(self, winning_player):
         return "Advantage " + winning_player.name
+
+    def fancy_score(self):
+        return self.players[0].fancy_score()+"-"+self.players[1].fancy_score()
