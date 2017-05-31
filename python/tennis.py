@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 class TennisGame1:
     def __init__(self, player1Name, player2Name):
         self.player1Name = player1Name
@@ -16,7 +14,7 @@ class TennisGame1:
     def score(self):
         result = ""
         temp_score = 0
-        if self.p1points == self.p2points:
+        if self.players_have_the_same_score():
             result = {
                 0: "Love-All",
                 1: "Fifteen-All",
@@ -46,6 +44,9 @@ class TennisGame1:
                     3: "Forty",
                 }[temp_score]
         return result
+
+    def players_have_the_same_score(self):
+        return self.p1points == self.p2points
 
 
 class TennisGame2:
