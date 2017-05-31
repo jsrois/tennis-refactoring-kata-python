@@ -1,3 +1,6 @@
+FORTY  = 3
+
+
 class Player:
     def __init__(self, name):
         self.name = name
@@ -5,6 +8,9 @@ class Player:
 
     def won_point(self):
         self.score += 1
+
+    def advantage_over(self, player):
+        return self.score - player.score
 
 
 class TennisGame1:
@@ -22,17 +28,10 @@ class TennisGame1:
 
         winning_player, losing_player = self.whos_winning()
 
-        if self.players[0].score >= 4 or self.players[1].score >= 4:
-            minus_result = self.players[0].score - self.players[1].score
-            if minus_result == 1:
-                result = "Advantage " + self.players[0].name
-            elif minus_result == -1:
-                result = "Advantage " + self.players[1].name
-            elif minus_result >= 2:
-                result = "Win for " + self.players[0].name
-            else:
-                result = "Win for " + self.players[1].name
-            return result
+        if winning_player.score > FORTY:
+            if winning_player.advantage_over(losing_player) > 1:
+                return self.winning_result(winning_player)
+            return self.advantage_for(winning_player)
 
         for i in range(1, 3):
             if i == 1:
@@ -65,3 +64,9 @@ class TennisGame1:
 
     def whos_winning(self):
         return sorted(self.players, key=lambda player: player.score, reverse=True)
+
+    def winning_result(self, winning_player):
+        return "Win for " + winning_player.name
+
+    def advantage_for(self, winning_player):
+        return "Advantage " + winning_player.name
