@@ -1,7 +1,7 @@
 class TennisGame1:
-    def __init__(self, player1Name, player2Name):
-        self.player1Name = player1Name
-        self.player2Name = player2Name
+    def __init__(self, player1_name, player2_name):
+        self.player1Name = player1_name
+        self.player2Name = player2_name
         self.p1points = 0
         self.p2points = 0
 
@@ -16,20 +16,20 @@ class TennisGame1:
         temp_score = 0
         if self.players_have_the_same_score():
             return self.tied_result()
-        if (self.p1points >= 4 or self.p2points >= 4):
-            minusResult = self.p1points - self.p2points
-            if (minusResult == 1):
+        if self.p1points >= 4 or self.p2points >= 4:
+            minus_result = self.p1points - self.p2points
+            if minus_result == 1:
                 result = "Advantage " + self.player1Name
-            elif (minusResult == -1):
+            elif minus_result == -1:
                 result = "Advantage " + self.player2Name
-            elif (minusResult >= 2):
+            elif minus_result >= 2:
                 result = "Win for " + self.player1Name
             else:
                 result = "Win for " + self.player2Name
             return result
 
         for i in range(1, 3):
-            if (i == 1):
+            if i == 1:
                 temp_score = self.p1points
             else:
                 result += "-"
