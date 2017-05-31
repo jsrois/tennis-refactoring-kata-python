@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 
 class TennisGame1:
-    def __init__(self, player1Name, player2Name):
-        self.player1Name = player1Name
-        self.player2Name = player2Name
-        self.p1points = 0
-        self.p2points = 0
+    def __init__(self, player1, player2):
+        self.player_scores = {
+            player1: 0,
+            player2: 0
+        }
 
-    def won_point(self, playerName):
-        if playerName == self.player1Name:
-            self.p1points += 1
-        else:
-            self.p2points += 1
+    def won_point(self, player):
+        self.player_scores[player] += 1
 
     def players_have_the_same_points(self):
-        return self.p1points == self.p2points
+        scores = self.player_scores.values()
+        return scores[0] == scores[1]
 
     def score(self):
         result = ""
@@ -22,24 +20,26 @@ class TennisGame1:
         if self.players_have_the_same_points():
             return self.tied_score()
 
-        if (self.p1points >= 4 or self.p2points >= 4):
-            minusResult = self.p1points - self.p2points
+        player1, player2 = sorted(self.player_scores.items())
+
+        if (player1[1] >= 4 or player2[1] >= 4):
+            minusResult = player1[1] - player2[1]
             if (minusResult == 1):
-                result = "Advantage " + self.player1Name
+                result = "Advantage " + player1[0]
             elif (minusResult == -1):
-                result = "Advantage " + self.player2Name
+                result = "Advantage " + player2[0]
             elif (minusResult >= 2):
-                result = "Win for " + self.player1Name
+                result = "Win for " + player1[0]
             else:
-                result = "Win for " + self.player2Name
+                result = "Win for " + player2[0]
             return result
 
         for i in range(1, 3):
             if (i == 1):
-                temp_score = self.p1points
+                temp_score = player1[1]
             else:
                 result += "-"
-                temp_score = self.p2points
+                temp_score = player2[1]
             result += {
                 0: "Love",
                 1: "Fifteen",
@@ -53,4 +53,4 @@ class TennisGame1:
             0: "Love-All",
             1: "Fifteen-All",
             2: "Thirty-All",
-        }.get(self.p1points, "Deuce")
+        }.get(self.player_scores.values()[0], "Deuce")
