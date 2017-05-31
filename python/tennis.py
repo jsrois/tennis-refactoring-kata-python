@@ -15,11 +15,7 @@ class TennisGame1:
         result = ""
         temp_score = 0
         if self.players_have_the_same_score():
-            result = {
-                0: "Love-All",
-                1: "Fifteen-All",
-                2: "Thirty-All",
-            }.get(self.p1points, "Deuce")
+            return self.tied_result()
         elif (self.p1points >= 4 or self.p2points >= 4):
             minusResult = self.p1points - self.p2points
             if (minusResult == 1):
@@ -44,6 +40,13 @@ class TennisGame1:
                     3: "Forty",
                 }[temp_score]
         return result
+
+    def tied_result(self):
+        return {
+            0: "Love-All",
+            1: "Fifteen-All",
+            2: "Thirty-All",
+        }.get(self.p1points, "Deuce")
 
     def players_have_the_same_score(self):
         return self.p1points == self.p2points
