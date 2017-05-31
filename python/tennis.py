@@ -16,7 +16,7 @@ class TennisGame1:
         temp_score = 0
         if self.players_have_the_same_score():
             return self.tied_result()
-        elif (self.p1points >= 4 or self.p2points >= 4):
+        if (self.p1points >= 4 or self.p2points >= 4):
             minusResult = self.p1points - self.p2points
             if (minusResult == 1):
                 result = "Advantage " + self.player1Name
@@ -26,19 +26,20 @@ class TennisGame1:
                 result = "Win for " + self.player1Name
             else:
                 result = "Win for " + self.player2Name
-        else:
-            for i in range(1, 3):
-                if (i == 1):
-                    temp_score = self.p1points
-                else:
-                    result += "-"
-                    temp_score = self.p2points
-                result += {
-                    0: "Love",
-                    1: "Fifteen",
-                    2: "Thirty",
-                    3: "Forty",
-                }[temp_score]
+            return result
+
+        for i in range(1, 3):
+            if (i == 1):
+                temp_score = self.p1points
+            else:
+                result += "-"
+                temp_score = self.p2points
+            result += {
+                0: "Love",
+                1: "Fifteen",
+                2: "Thirty",
+                3: "Forty",
+            }[temp_score]
         return result
 
     def tied_result(self):
